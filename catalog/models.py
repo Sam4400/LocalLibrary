@@ -1,7 +1,10 @@
 from django.db import models
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns
+import uuid  # Required for unique book instances
+
 
 # Create your models here.
+
 
 class Genre(models.Model):
     """Model representing a book genre."""
@@ -11,6 +14,8 @@ class Genre(models.Model):
         """String for representing the Model object."""
         return self.name
 
+
+
 class Language(models.Model):
     """Model representing a Language (e.g. English, French, Japanese, etc.)"""
     name = models.CharField(max_length=200,
@@ -19,6 +24,8 @@ class Language(models.Model):
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
+
+
 
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
@@ -50,7 +57,8 @@ class Book(models.Model):
 
     display_genre.short_description = 'Genre'
 
-import uuid  # Required for unique book instances
+
+
 
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
@@ -84,6 +92,7 @@ class BookInstance(models.Model):
         """String for representing the Model object."""
         return f'{self.id} ({self.book.title})'
 
+
 class Author(models.Model):
     """Model representing an author."""
     first_name = models.CharField(max_length=100)
@@ -101,6 +110,3 @@ class Author(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
-
-    class Meta:
-        ordering = ['last_name']
