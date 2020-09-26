@@ -16,4 +16,6 @@
     <li><strong>Genres:</strong> {{ num_genres }}</li>
     <li><strong>Book titles including "test":</strong> {{ num_books_test }}</li>
   </ul>
+
+    <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
 {% endblock %}
