@@ -27,6 +27,11 @@ class Language(models.Model):
 
 
 class Book(models.Model):
+
+
+    class Meta:
+        permissions = (('can_add_book', 'Can add books'), ('can_delete_book', 'Can Delete Books'), ('can_edit_book','Can Edit Books'))
+
     """Model representing a book (but not a specific copy of a book)."""
     title = models.CharField(max_length=200)
 
@@ -49,6 +54,12 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
+
+    def get_edit_url(self):
+        return reverse('book_edit',args=[str(self.id)])
+
+    def get_delete_url(self):
+        return reverse('book_delete',args=[str(self.id)])
 
     def display_genre(self):
         """Create a string for the Genre. This is required to display genre in Admin."""
@@ -108,10 +119,17 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name', 'first_name']
+        permissions = (("can_add", "Add Author"),("can_delete", "Delete Author"),("can_edit", "Edit Author"),)
 
     def get_absolute_url(self):
         """Returns the url to access a particular author instance."""
         return reverse('author-detail', args=[str(self.id)])
+
+    def get_edit_url(self):
+        return reverse('author_update',args=[str(self.id)])
+
+    def get_delete_url(self):
+        return reverse('author_delete',args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""

@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Edit Authors</h1>
+  {% if author_list %}
+  <ul>
+    {% for author in author_list %}
+      <li>
+        <strong> <a href="{{ author.get_edit_url }}">{{ author.last_name }}, {{ author.first_name }}</a> </strong>--  {% if perms.catalog.can_delete %} <a href="{{ author.get_delete_url }}"> Delete Author </a> {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no authors in the library database.</p>
+  {% endif %}
+
+    <ul> <a href="{% url 'author_create' %}"> Add Author </a> </ul>
+{% endblock %}

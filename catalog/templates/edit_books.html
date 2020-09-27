@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Edit Books</h1>
+  {% if book_list %}
+  <ul>
+    {% for book in book_list %}
+      <li>
+        <strong> <a href="{{ book.get_edit_url }}">{{ book.title }}</a>, {{ book.author }} </strong>--  {% if perms.catalog.can_delete_book %} <a href="{{ book.get_delete_url }}"> Delete Book </a> {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no authors in the library database.</p>
+  {% endif %}
+
+    <ul> <a href="{% url 'book_create' %}"> Add Book </a> </ul>
+{% endblock %}
